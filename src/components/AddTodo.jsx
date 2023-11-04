@@ -8,9 +8,10 @@ function AddTodo() {
 
   const addTodoHandler = (e) => {
     e.preventDefault();
-
-    dispatch(addTodo(input));
-    setInput("");
+    if (input !== "") {
+      dispatch(addTodo(input));
+      setInput("");
+    }
   };
   return (
     <form onSubmit={addTodoHandler}>

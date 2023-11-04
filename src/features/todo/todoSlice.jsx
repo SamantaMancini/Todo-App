@@ -2,6 +2,7 @@ import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const initialState = {
   todos: [{ id: 0, text: "Cook the dinner" }],
+  maxItems: 5,
 };
 
 export const todoSlice = createSlice({
@@ -9,11 +10,13 @@ export const todoSlice = createSlice({
   initialState,
   reducers: {
     addTodo: (state, action) => {
-      const todo = {
-        id: nanoid(),
-        text: action.payload,
-      };
-      state.todos.push(todo);
+      if (state.todos.length < state.maxItems) {
+        const todo = {
+          id: nanoid(),
+          text: action.payload,
+        };
+        state.todos.push(todo);
+      }
     },
     removeTodo: (state, action) => {
       state.todos = state.todos.filter((todo) => todo.id !== action.payload);
